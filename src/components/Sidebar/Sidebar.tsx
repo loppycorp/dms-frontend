@@ -2,6 +2,7 @@ import { fetchAPIFromCMS } from "@/lib/api";
 import React from "react";
 import SidebarHandler from "@/components/Sidebar/SidebarHandler";
 import SidebarContent from "@/components/Sidebar/SidebarContent";
+import { systemMenus } from "@/data/navigation";
 
 const fetchMenus = async () => {
   const menuItemsRes = await fetchAPIFromCMS(
@@ -14,12 +15,10 @@ const fetchMenus = async () => {
   return items;
 };
 
-async function Sidebar({ className }: { className?: string | null }) {
-  const menuItems = await fetchMenus();
-
+function Sidebar({ className }: { className?: string | null }) {
   return (
     <SidebarHandler className={className}>
-      <SidebarContent menuItems={menuItems} />
+      <SidebarContent menuItems={systemMenus} />
     </SidebarHandler>
   );
 }

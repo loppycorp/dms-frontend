@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import NavigationalBar from "@/components/Navigation/NavigationalBar";
 import React, { Suspense } from "react";
@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import NextTopLoader from "nextjs-toploader";
 
-const primaryFont = Inter({
+const primaryFont = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
 });

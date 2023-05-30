@@ -97,8 +97,7 @@ body {
 }
 
 body {
-  color: var(--color-primary-dark);
-  background: var(--color-light-dark);
+  @apply bg-light text-black;
 }
 
 a {

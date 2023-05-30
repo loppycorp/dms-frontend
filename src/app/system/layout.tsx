@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import Link from "next/link";
 import { metadata } from "@/data/metadata";
-import NavigationalBar from "@/components/Navigation/NavigationalBar";
 import React from "react";
 import SystemNavigationalBar from "@/components/Navigation/SystemNavigationalBar";
 

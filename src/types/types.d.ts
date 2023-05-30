@@ -35,10 +35,12 @@ declare global {
   };
 
   type MenuLinkItem = {
-    id: number;
     title: string;
     url: string;
-    children: MenuLinkItem[];
+    icon?: any;
+    icon_active?: any;
+    bullet_color?: string;
+    children?: MenuLinkItem[];
   };
 
   type MenuItem = {
