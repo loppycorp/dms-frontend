@@ -1,0 +1,43 @@
+{
+  "name": "sap-ui-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.13",
+    "@heroicons/react": "^2.0.17",
+    "@tailwindcss/forms": "^0.5.3",
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.33",
+    "@types/react-dom": "18.0.11",
+    "@windmill/react-ui": "^0.6.0",
+    "axios": "^1.4.0",
+    "eslint": "8.37.0",
+    "eslint-config-next": "13.2.4",
+    "next": "^13.4.4",
+    "next-auth": "^4.22.1",
+    "nextjs-toploader": "^1.4.2",
+    "react": "^18.2.0",
+    "react-datepicker": "^4.11.0",
+    "react-dom": "^18.2.0",
+    "slugify": "^1.6.6",
+    "swr": "^2.1.5",
+    "tailwind-scrollbar": "^3.0.4",
+    "typescript": "5.0.3"
+  },
+  "devDependencies": {
+    "@types/react-datepicker": "^4.10.0",
+    "autoprefixer": "^10.4.14",
+    "eslint-config-prettier": "^8.8.0",
+    "postcss": "^8.4.21",
+    "postcss-import": "^15.1.0",
+    "postcss-nesting": "^11.2.2",
+    "prettier": "^2.8.7",
+    "tailwindcss": "^3.3.1"
+  }
+}

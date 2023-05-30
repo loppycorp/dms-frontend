@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #039d66;
+  --color-primary-dark: #01714a;
+  --color-primary-light: #a2323130;
+  --color-light: #ffffff;
+  --color-light-lighter: #ededed;
+  --color-light-dark: #f0f0f0;
+  --color-light-darker: #d9d9d9;
+  --color-light-green: #05a34a;
+}
+
+@layer components {
+  .btn {
+    @apply py-2.5 px-5 text-sm font-semibold bg-light flex gap-1 items-center justify-center
+    shadow text-primary-dark rounded-full cursor-pointer hover:bg-light-lighter;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-light hover:bg-primary-dark hover:text-light disabled:pointer-events-none disabled:bg-gray-500;
+  }
+
+  .btn-tiny {
+    @apply flex items-center p-2 -ml-1 gap-2 rounded-md
+    focus:outline-none bg-light-lighter
+    hover:bg-primary-dark
+    hover:text-light uppercase tracking-wide text-xs font-bold my-1;
+  }
+
+  .btn-tiny-primary {
+    @apply btn-tiny bg-primary text-light hover:bg-primary-dark hover:text-light;
+  }
+
+  .input {
+    @apply appearance-none block w-full bg-gray-100 text-primary-dark
+    border-gray-300 border
+    rounded-3xl py-3 px-4 leading-tight focus:outline-none focus:bg-white
+    focus:border-gray-500 shadow-inner placeholder-gray-300 disabled:bg-light-darker;
+  }
+
+  .label {
+    @apply block uppercase tracking-wide text-primary-dark text-xs font-bold my-1;
+  }
+
+  .form-title {
+    @apply font-bold uppercase text-sm py-2 border-b-light-darker border-b-2 text-primary;
+  }
+}
+
+.custom-scrollbar {
+  @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-light-darker scrollbar-thumb-rounded-2xl
+  hover:scrollbar-thumb-primary hover:scrollbar-track-primary-light;
+}
+
+.custom-scrollbar-page {
+  @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary scrollbar-thumb-rounded-2xl
+  hover:scrollbar-thumb-primary hover:scrollbar-track-primary-dark;
+}
+
+.table-data .input {
+  @apply rounded-none bg-gray-50 border-0 w-full p-2 text-xs font-medium h-full;
+}
+
+.table-data .input-checkbox {
+  @apply justify-center;
+}
+
+.table-data .list-options {
+  @apply fixed w-full h-full top-0 left-0 flex items-center justify-center z-50 bg-opacity-20 bg-black;
+}
+.table-data .list-options .options {
+  @apply max-w-md;
+}
+
+.table-data label {
+  @apply hidden;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-weight: 400;
+}
+
+html,
+body {
+  height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  color: var(--color-primary-dark);
+  background: var(--color-light-dark);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
