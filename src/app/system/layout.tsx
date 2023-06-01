@@ -11,7 +11,6 @@ async function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex relative h-full w-full">
-      {/* @ts-expect-error Async Server Component */}
       <Sidebar className="w-full lg:w-1/3 xl:w-1/5" />
       <div className="flex flex-col w-full h-full relative overflow-y-auto custom-scrollbar-page">
         <SystemNavigationalBar session={session} />
