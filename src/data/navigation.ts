@@ -28,8 +28,8 @@ export const systemMenus: MenuLinkItem[] = [
         bullet_color: "#219653",
       },
       {
-        title: "Assets",
-        url: "/assets",
+        title: "Departments",
+        url: "/departments",
         bullet_color: "#2D9CDB",
       },
     ],

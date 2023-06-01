@@ -12,7 +12,7 @@ function LoginButton(props: { isLoggedIn: boolean; replaceText?: string }) {
         className="btn-primary"
         onClick={() => {
           setLoading(true);
-          signOut({ callbackUrl: "/login" });
+          signOut({ callbackUrl: "/" });
         }}
         disabled={loading}
       >

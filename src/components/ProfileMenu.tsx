@@ -44,7 +44,7 @@ function ProfileMenu(props: { session: Session | null }) {
                   active && "bg-gray-100"
                 }`}
                 onClick={() => {
-                  signOut({ callbackUrl: "/login" });
+                  signOut({ callbackUrl: "/" });
                 }}
               >
                 Sign out
