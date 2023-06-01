@@ -14,7 +14,7 @@ function ProfileMenu(props: { session: Session | null }) {
       <div>
         <Menu.Button className="flex rounded-full text-sm bg-light-darker hover:bg-light-lighter">
           <span className="sr-only">Open user menu</span>
-          <UserIcon className="h-9 w-9 text-primary-dark" />
+          <UserIcon className="h-9 w-9 text-primary" />
         </Menu.Button>
       </div>
       <Transition
