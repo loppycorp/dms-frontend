@@ -4,7 +4,7 @@ import FormItemsJSON from "@/components/Forms/FormItemsJSON";
 import ButtonItems from "@/components/Forms/ButtonItems";
 import React from "react";
 import BackButton from "@/components/Utilities/Action Buttons/BackButton";
-import AdditionalSections from "@/components/Elements/AdditionalSections/AdditionalSections";
+// import AdditionalSections from "@/components/Elements/AdditionalSections/AdditionalSections";
 
 async function PageContent(props: { page: PageItem; session: Session | null }) {
   if (props.session) {
@@ -26,7 +26,7 @@ async function PageContent(props: { page: PageItem; session: Session | null }) {
           sectionName=""
           session={props.session}
         />
-        <AdditionalSections
+        {/* <AdditionalSections
           additionalSections={props.page.additional_sections}
           session={props.session}
           page={props.page}
@@ -35,7 +35,7 @@ async function PageContent(props: { page: PageItem; session: Session | null }) {
           jsonData={props.page.json_data}
           session={props.session}
           api_url={props.page.api_url}
-        />
+        /> */}
       </div>
     );
   }
