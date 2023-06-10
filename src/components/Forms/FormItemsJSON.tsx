@@ -5,12 +5,7 @@ import widthStyles from "@/utils/width-style-map";
 import { useFormContext } from "@/context/FormContext";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
-function FormItemsJSON(props: {
-  items: object;
-  windowName: string;
-  sectionName: string;
-  session: Session | null;
-}) {
+function FormItemsJSON(props: { items: object; session: Session | null }) {
   const itemsArray = Object.entries(props.items);
   const context = useFormContext();
 
@@ -35,8 +30,6 @@ function FormItemsJSON(props: {
               component: component,
               session: props.session,
               inputProps: {
-                windowName: props.windowName,
-                parentName: props.sectionName,
                 componentName: componentName,
               },
               editable: true,

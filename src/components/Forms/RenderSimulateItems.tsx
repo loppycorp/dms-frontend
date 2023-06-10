@@ -32,8 +32,6 @@ function RenderSimulateItems(props: {
                   component={component}
                   session={props.session}
                   inputProps={{
-                    windowName: props.windowName,
-                    parentName: props.sectionName,
                     componentName: componentName,
                   }}
                   key={componentName}

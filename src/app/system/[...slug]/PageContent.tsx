@@ -20,12 +20,7 @@ async function PageContent(props: { page: PageItem; session: Session | null }) {
           />
         </div>
 
-        <FormItemsJSON
-          items={(props.page.json_data as any).header}
-          windowName="header"
-          sectionName=""
-          session={props.session}
-        />
+        <FormItemsJSON items={props.page.json_data} session={props.session} />
         {/* <AdditionalSections
           additionalSections={props.page.additional_sections}
           session={props.session}

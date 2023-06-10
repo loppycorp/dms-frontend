@@ -73,34 +73,7 @@ function FormModal(props: {
         {props.button.label}
       </div>
       {errors?.length > 0 && <AlertList data={errors} />}
-
-      {Object.entries(props.page.json_data).map(([key, value]) => {
-        if (key == "header")
-          return (
-            <FormItemsJSON
-              items={(props.page.json_data as any).header}
-              windowName="header"
-              sectionName={""}
-              session={session}
-              key={key}
-            />
-          );
-        return (
-          <div
-            key={key}
-            className="ring-0 focus:outline-none focus:ring-0 w-full"
-          >
-            {
-              // @ts-ignore
-              <FormSectionsJSON
-                formSections={value as object}
-                window={key}
-                session={session}
-              />
-            }
-          </div>
-        );
-      })}
+      <FormItemsJSON items={props.page.json_data} session={session} />
     </Modal>
   );
 }

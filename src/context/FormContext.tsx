@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { boolean } from "zod";
 
 export interface FormValues {
-  [window: string]: { [parent: string]: any };
+  [key: string]: any;
 }
 
 export interface FieldValue {
@@ -12,8 +12,6 @@ export interface FieldValue {
 }
 
 export interface InputProps {
-  windowName: string;
-  parentName: string;
   componentName: string;
 }
 
@@ -58,17 +56,8 @@ export const FormProvider = (props: {
 
   function value(inputProps?: InputProps) {
     if (!inputProps) return;
-    if (inputProps.parentName) {
-      if (inputProps.componentName != "") {
-        return formValues[inputProps.windowName]?.[inputProps.parentName]?.[
-          inputProps.componentName
-        ];
-      } else {
-        return formValues[inputProps.windowName]?.[inputProps.parentName];
-      }
-    }
-
-    return formValues[inputProps.windowName][inputProps.componentName];
+    console.log(formValues[inputProps.componentName]);
+    return formValues[inputProps.componentName];
   }
 
   function sanitizeForm(fields: any, vals: any) {
@@ -80,15 +69,10 @@ export const FormProvider = (props: {
       const tempFields = fields[key];
 
       if (typeof value === "object" && value !== null) {
-        if (Array.isArray(value)) {
-          // it means it is a table, so just return as is
-          newFormValues[key] = value.map((item) =>
-            sanitizeForm(tempFields, item)
-          );
-        } else if ("_id" in value) {
+        if ("_id" in value) {
           newFormValues[key] = value["_id"];
         } else {
-          newFormValues[key] = sanitizeForm(tempFields, value);
+          newFormValues[key] = value;
         }
       }
       if (value == null || value == "" || tempFields?.disabled) {
@@ -111,21 +95,7 @@ export const FormProvider = (props: {
 
     // Make sure that all data is blank
     for (const [key, value] of Object.entries(newFormValues)) {
-      if (key == "header") {
-        for (const [key1, value1] of Object.entries(value)) {
-          newFormValues[key][key1] = null;
-        }
-      } else {
-        for (const [key1, value1] of Object.entries(value)) {
-          for (const [key2, value2] of Object.entries(value1)) {
-            if (Array.isArray(value1)) {
-              newFormValues[key][key1] = "";
-            } else {
-              newFormValues[key][key1][key2] = null;
-            }
-          }
-        }
-      }
+      newFormValues[key] = null;
     }
     return newFormValues;
   }
@@ -135,28 +105,13 @@ export const FormProvider = (props: {
   }
 
   function assignValues(index: number) {
-    let newFormValues = JSON.parse(
-      JSON.stringify(props.page.json_data)
-    ) as FormValues;
-
+    let newFormValues = emptyValues();
     const generatedData = props.page.generated_data?.[index];
 
     if (generatedData) {
       for (const [key, value] of Object.entries(generatedData)) {
         if (key == "header") {
-          for (const [key1, value1] of Object.entries(value)) {
-            newFormValues[key][key1] = value1;
-          }
-        } else {
-          for (const [key1, value1] of Object.entries(value)) {
-            for (const [key2, value2] of Object.entries(value1 as any)) {
-              if (Array.isArray(value1)) {
-                newFormValues[key][key1] = value1;
-              } else if (newFormValues[key]?.[key1]?.hasOwnProperty(key2)) {
-                newFormValues[key][key1][key2] = value2;
-              }
-            }
-          }
+          newFormValues[key] = value;
         }
       }
     }
@@ -168,22 +123,9 @@ export const FormProvider = (props: {
   function handleInputChange(inputProps: InputProps | undefined, value: any) {
     if (!inputProps) return;
 
-    const windowFields = formValues[inputProps.windowName];
-    let sectionFields: FormValues = {};
-    if (inputProps.parentName != "") {
-      if (inputProps.componentName != "") {
-        sectionFields = windowFields[inputProps.parentName];
-        sectionFields[inputProps.componentName] = value;
-      } else {
-        windowFields[inputProps.parentName] = value;
-      }
-    } else {
-      windowFields[inputProps.componentName] = value;
-    }
-
     setFormValues((prevState) => ({
       ...prevState,
-      [inputProps.windowName]: windowFields,
+      [inputProps.componentName]: value,
     }));
   }
 
