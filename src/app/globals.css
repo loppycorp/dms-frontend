@@ -7,6 +7,7 @@
   --color-primary-dark: #01714a;
   --color-primary-light: #a2323130;
   --color-light: #ffffff;
+  --color-black: #000000;
   --color-light-lighter: #ededed;
   --color-light-dark: #f0f0f0;
   --color-light-darker: #d9d9d9;
@@ -35,14 +36,14 @@
   }
 
   .input {
-    @apply appearance-none block w-full bg-gray-100 text-primary-dark
-    border-gray-300 border
+    @apply appearance-none block w-full bg-light text-black
+    border-primary border
     rounded-3xl py-3 px-4 leading-tight focus:outline-none focus:bg-white
-    focus:border-gray-500 shadow-inner placeholder-gray-300 disabled:bg-light-darker;
+    focus:border-gray-500 shadow-inner placeholder-light disabled:bg-light-darker;
   }
 
   .label {
-    @apply block uppercase tracking-wide text-primary-dark text-xs font-bold my-1;
+    @apply block uppercase tracking-wide text-black text-xs font-bold my-1;
   }
 
   .form-title {

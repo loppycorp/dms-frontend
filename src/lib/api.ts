@@ -54,6 +54,7 @@ async function fetchFromURL(
   const data = await fetch(requestUrl, options);
   if (!data.ok) {
     // console.log(e);
+    return null;
   }
 
   return data.json();

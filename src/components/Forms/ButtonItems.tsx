@@ -20,9 +20,10 @@ function ButtonItems(props: {
   page: PageItem;
   session: Session | null;
   buttonClasses?: string | null;
+  className?: string | null;
 }) {
   return (
-    <div className="flex gap-3 mb-1 flex-wrap">
+    <div className={`flex gap-3 mb-1 flex-wrap ${props.className} `}>
       {props.buttons.map((item, index) => {
         const Component = componentMap[item.__component];
         if (!Component) {

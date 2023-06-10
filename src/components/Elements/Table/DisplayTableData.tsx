@@ -29,22 +29,20 @@ function DisplayTableData(props: {
 
   return (
     <>
-      <ButtonItems
-        page={props.page}
-        buttons={props.page.buttons}
-        session={props.session}
-        buttonClasses="btn-primary"
-      />
-      <div className="w-full overflow-auto shadow rounded-2xl">
-        <table className="w-full text-sm text-left text-primary-dark bg-light overflow-hidden">
+      <div className="w-full overflow-auto shadow rounded-2xl my-18 ">
+        <table className="w-full text-sm text-left text-black bg-light overflow-hidden ">
           <thead className="text-xs text-primary-dark uppercase bg-light">
             <tr>
               {display_columns.map((header) => (
-                <th scope="col" className="px-6 py-4" key={header}>
+                <th
+                  scope="col"
+                  className="px-6 py-4 bg-primary text-light"
+                  key={header}
+                >
                   {header.split(".").slice(-1).toString().replaceAll("_", " ")}
                 </th>
               ))}
-              <th className="text-center">Action</th>
+              <th className="text-center bg-primary text-light">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -85,6 +83,13 @@ function DisplayTableData(props: {
           </tbody>
         </table>
       </div>
+      <ButtonItems
+        className={"fixed bottom-0 right-0 px-6 py-4"}
+        page={props.page}
+        buttons={props.page.buttons}
+        session={props.session}
+        buttonClasses="btn-primary "
+      />
     </>
   );
 }

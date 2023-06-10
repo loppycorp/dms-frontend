@@ -51,7 +51,7 @@ function FormItems(props: { inputItems: InputItem[]; title?: string }) {
         const parentSlug = props.title ? createSlug(props.title) : undefined;
         return (
           <div
-            className={`w-full px-3 pb-3 md:mb-0 ${
+            className={`w-full px-3 pb-3 md:mb-0  ${
               widthStyles[item.width] || ""
             }`}
             key={index}
