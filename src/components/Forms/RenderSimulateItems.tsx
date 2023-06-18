@@ -16,8 +16,6 @@ function RenderSimulateItems(props: {
     <>
       {itemsArray.map(([componentName, component]) => {
         const inputProps = {
-          windowName: props.windowName,
-          parentName: props.sectionName,
           componentName: componentName,
         };
         let selectedField = context.value(inputProps);
@@ -38,7 +36,7 @@ function RenderSimulateItems(props: {
                 />
               </div>
             );
-          case "mongoose.SchemaTypes.ObjectId":
+          case "Reference Id":
             if (selectedField) {
               const displayFields = component.fields?.trim().split(/\r?\n|, /);
 

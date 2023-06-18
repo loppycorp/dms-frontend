@@ -27,6 +27,15 @@ declare global {
     additional_sections: any[];
   };
 
+  type PaginationItem = {
+    page_num: number;
+    page_limit: number;
+    page_count: number;
+    sort_order: string;
+    sort_by: string;
+    total_result: number;
+  };
+
   type WindowItem = {
     id: number;
     title: string;

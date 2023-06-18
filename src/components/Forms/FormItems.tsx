@@ -1,14 +1,6 @@
 "use client";
-import InputText from "@/components/Fields/InputText";
-import InputSelect from "@/components/Fields/InputSelect";
-import InputDateRange from "@/components/Fields/InputDateRange";
-import SectionTitle from "@/components/Elements/SectionTitle";
-import Table from "@/components/Elements/Table/Table";
-import RadioGroup from "@/components/Fields/RadioGroup";
-import InputCheckbox from "@/components/Fields/InputCheckbox";
 import { createSlug } from "@/utils/create-id";
 import { FormContextType, useFormContext } from "@/context/FormContext";
-import InputAutocomplete from "@/components/Fields/InputAutocomplete/InputAutocomplete";
 import { useSession } from "next-auth/react";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import widthStyles from "@/utils/width-style-map";
@@ -41,7 +33,7 @@ function FormItems(props: { inputItems: InputItem[]; title?: string }) {
   if (!props.inputItems) return <div>No Elements found</div>;
 
   return (
-    <div className="w-full border-primary flex flex-wrap items-end">
+    <div className="w-full border-primary flex flex-wrap items-start">
       {props.inputItems.map((item, index) => {
         const Component = componentMap[item.__component];
         if (!Component) {
@@ -51,7 +43,7 @@ function FormItems(props: { inputItems: InputItem[]; title?: string }) {
         const parentSlug = props.title ? createSlug(props.title) : undefined;
         return (
           <div
-            className={`w-full px-3 pb-3 md:mb-0  ${
+            className={`w-full px-3 pb-3 md:mb-0 ${
               widthStyles[item.width] || ""
             }`}
             key={index}

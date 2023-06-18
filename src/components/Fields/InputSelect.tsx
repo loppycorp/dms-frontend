@@ -29,7 +29,7 @@ function InputSelect(props: ComponentProps) {
             <span className="block truncate">{selectedField}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
-                className="h-5 w-5 text-gray-400"
+                className="h-5 w-5 text-primary"
                 aria-hidden="true"
               />
             </span>
@@ -40,7 +40,7 @@ function InputSelect(props: ComponentProps) {
             leaveTo="opacity-0"
             className="list-options"
           >
-            <Listbox.Options className="options absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-light-lighter py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="options absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-light py-1 text-base shadow-lg ring-1 ring-primary ring-opacity-5 focus:outline-none sm:text-sm">
               {items.map((item, index) => (
                 <Listbox.Option
                   key={index}

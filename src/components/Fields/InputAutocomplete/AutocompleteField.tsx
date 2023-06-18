@@ -88,7 +88,7 @@ function AutocompleteField(props: Props) {
                   }`}
                 >
                   <ChevronUpDownIcon
-                    className="h-5 w-5 text-gray-400"
+                    className="h-5 w-5 text-primary"
                     aria-hidden="true"
                   />
                 </Combobox.Button>
@@ -105,7 +105,7 @@ function AutocompleteField(props: Props) {
               afterLeave={() => setQuery("")}
               className="list-options"
             >
-              <Combobox.Options className="options absolute z-10 mt-1 overflow-auto max-h-60 w-full rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Combobox.Options className="options absolute z-10 mt-1 overflow-auto max-h-60 w-full rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-primary ring-opacity-5 focus:outline-none sm:text-sm">
                 {props.otherOptions?.isOnTable && (
                   <input
                     className="w-full bg-gray-200 text-primary-dark border-gray-300 border py-3 px-4 -mt-1 pointer-events-none"
@@ -128,7 +128,7 @@ function AutocompleteField(props: Props) {
                       key={item._id}
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? "bg-primary text-white" : "text-gray-900"
+                          active ? "bg-light-dark text-black" : "text-gray-900"
                         }`
                       }
                       value={item}

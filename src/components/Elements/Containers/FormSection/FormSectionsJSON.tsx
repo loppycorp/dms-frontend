@@ -20,12 +20,12 @@ function FormSectionsJSON(props: {
           <div className={`w-full px-3 pb-3 md:mb-0`} key={key}>
             <div className="mb-2">
               <div className="form-title mb-3">{key}</div>
-              <FormItemsJSON
+              {/* <FormItemsJSON
                 items={value}
                 windowName={props.window}
                 sectionName={key}
                 session={props.session}
-              />
+              /> */}
             </div>
           </div>
         );

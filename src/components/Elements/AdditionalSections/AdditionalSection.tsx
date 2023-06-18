@@ -6,8 +6,8 @@ import {
 } from "@/context/FormContext";
 import { Session } from "next-auth";
 import widthStyles from "@/utils/width-style-map";
-import AmountInformation from "@/components/Elements/AdditionalSections/Components/AmountInformation";
 import DocumentStatus from "@/components/Elements/AdditionalSections/Components/DocumentStatus";
+import Statistics from "./Components/Statistics";
 
 interface AdditionalSectionMap {
   [key: string]: React.FC<AdditionalSectionProps>;
@@ -21,8 +21,8 @@ export type AdditionalSectionProps = {
 };
 
 export const additionalSectionMap: AdditionalSectionMap = {
-  "sections.amount-information": AmountInformation,
   "sections.document-status": DocumentStatus,
+  "sections.statistics": Statistics,
 };
 
 const AdditionalSection = (props: AdditionalSectionProps) => {

@@ -81,10 +81,6 @@ function SidebarContent(props: { menuItems: MenuLinkItem[] }) {
   return (
     <nav className="text-gray-400">
       <ul>{navItems}</ul>
-      <div className="absolute bottom-0 w-full bg-light-dark py-4 pl-10 pr-4 text-black font-medium flex justify-between items-center">
-        <span>Ace Reeve</span>
-        <EllipsisHorizontalIcon className="w-6" />
-      </div>
     </nav>
   );
 }
