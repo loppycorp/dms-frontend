@@ -52,9 +52,9 @@ function DisplayTableData(props: {
         {props.page.title}
       </div>
       {pageData ? (
-        <div className="w-full overflow-auto shadow rounded-2xl">
-          <table className="w-full text-sm text-left text-primary-dark bg-light overflow-hidden">
-            <thead className="text-xs text-primary-dark uppercase bg-light border-b border-gray-300">
+        <div className="w-full overflow-auto rounded-md my-12">
+          <table className="w-full text-sm text-left text-black bg-light overflow-hidden">
+            <thead className="text-xs text-light uppercase bg-primary border-b border-gray-300">
               <tr>
                 {display_columns.map((header) => (
                   <th scope="col" className="px-6 py-4" key={header}>
@@ -65,7 +65,7 @@ function DisplayTableData(props: {
                       .replaceAll("_", " ")}
                   </th>
                 ))}
-                <th className="text-center">Action</th>
+                <th className="text-center text-light">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -79,12 +79,6 @@ function DisplayTableData(props: {
 
                     return (
                       <td className="px-6 py-4" key={`${rowIndex}-${item}`}>
-                        {/*{typeof row[header] == "boolean" ? (*/}
-                        {/*  <SwitchElement value={row[header]} />*/}
-                        {/*) : (*/}
-                        {/*  row[header]*/}
-                        {/*)}*/}
-
                         {typeof traversedItem == "string" ||
                         typeof traversedItem == "number"
                           ? traversedItem
@@ -109,13 +103,13 @@ function DisplayTableData(props: {
       ) : (
         <LoadingSpinner />
       )}
-      <Pagination
+      {/* <Pagination
         itemsPerPage={pageData?.pagination.page_limit || 0}
         totalItems={pageData?.pagination.total_result || 0}
         currentPageNumber={queryParams?.get("page")}
         onPageChange={onPageChange}
         className="flex justify-end mt-4"
-      ></Pagination>
+      ></Pagination> */}
       <ButtonItems
         page={props.page}
         buttons={props.page.buttons}

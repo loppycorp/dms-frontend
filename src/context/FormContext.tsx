@@ -12,7 +12,7 @@ import { Session } from "next-auth";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 export interface FormValues {
-  [window: string]: { [parent: string]: any };
+  [key: string]: any;
 }
 
 export interface FieldValue {
@@ -20,8 +20,6 @@ export interface FieldValue {
 }
 
 export interface InputProps {
-  windowName: string;
-  parentName: string;
   componentName: string;
 }
 
@@ -44,9 +42,9 @@ export type FormContextType = {
 const FormContext = createContext<FormContextType>({
   formValues: {},
   value: () => null,
-  setValue: () => {},
-  duplicateValues: () => {},
-  createEmptyValues: () => {},
+  setValue: () => null,
+  duplicateValues: () => null,
+  createEmptyValues: () => null,
   getData: () => null,
   getAllPageItems: () => null,
   allItems: null,
@@ -74,18 +72,6 @@ export const FormProvider = (props: {
     refreshPageData();
   }, [params]);
 
-  useEffect(() => {
-    const itemIdParam = params?.get("item");
-    setCurrentSelectedItemId(itemIdParam || "");
-
-    if (pageData && itemIdParam) {
-      const index = pageData.data.findIndex((item: any) => {
-        return item._id === itemIdParam;
-      });
-      assignValues(index);
-    }
-  }, [pageData]);
-
   function refreshPageData() {
     const pageParam = params?.get("page");
 
@@ -101,20 +87,10 @@ export const FormProvider = (props: {
   }
   function value(inputProps?: InputProps) {
     if (!inputProps) return;
-    if (inputProps.parentName) {
-      if (inputProps.componentName != "") {
-        return formValues[inputProps.windowName]?.[inputProps.parentName]?.[
-          inputProps.componentName
-        ];
-      } else {
-        return formValues[inputProps.windowName]?.[inputProps.parentName];
-      }
-    }
-
-    return formValues[inputProps.windowName][inputProps.componentName];
+    console.log(formValues[inputProps.componentName]);
+    return formValues[inputProps.componentName];
   }
 
-  // Manipulate the data depending on the required api payload
   function sanitizeForm(fields: any, vals: any) {
     let newFormValues = { ...vals };
 
@@ -124,19 +100,10 @@ export const FormProvider = (props: {
       const tempFields = fields?.[key];
 
       if (typeof value === "object" && value !== null) {
-        if (Array.isArray(value)) {
-          // if a table
-          if (key == "_id") {
-            delete newFormValues[key];
-          } else {
-            newFormValues[key] = value.map((item) =>
-              sanitizeForm(tempFields, item)
-            );
-          }
-        } else if ("_id" in value) {
+        if ("_id" in value) {
           newFormValues[key] = value["_id"];
         } else {
-          newFormValues[key] = sanitizeForm(tempFields, value);
+          newFormValues[key] = value;
         }
       }
       if (value == null || value == "" || tempFields?.disabled) {
@@ -154,17 +121,15 @@ export const FormProvider = (props: {
 
   function getAllPageItems() {
     startTransition(() => {
-      getDataFromApi(props.page.api_url, props.session, 1, 99999).then(
-        (res) => {
-          const fields = props.page.json_data;
-          if (res.data) {
-            const items = res.data.map((item: any) => {
-              return sanitizeForm(fields, item);
-            });
-            setAllItems(items);
-          }
+      getDataFromApi(props.page.api_url, props.session, 1, 10).then((res) => {
+        const fields = props.page.json_data;
+        if (res.data) {
+          const items = res.data.map((item: any) => {
+            return sanitizeForm(fields, item);
+          });
+          setAllItems(items);
         }
-      );
+      });
     });
   }
 
@@ -176,22 +141,8 @@ export const FormProvider = (props: {
     // let newFormValues = props.page.json_data as FormValues;
 
     // Make sure that all data is blank
-    for (const [key, value] of Object.entries(newFormValues)) {
-      if (key == "header") {
-        for (const [key1, value1] of Object.entries(value)) {
-          newFormValues[key][key1] = null;
-        }
-      } else {
-        for (const [key1, value1] of Object.entries(value)) {
-          for (const [key2, value2] of Object.entries(value1)) {
-            if (Array.isArray(value1)) {
-              newFormValues[key][key1] = "";
-            } else {
-              newFormValues[key][key1] = null;
-            }
-          }
-        }
-      }
+    for (const [key] of Object.entries(newFormValues)) {
+      newFormValues[key] = null;
     }
     return newFormValues;
   }
@@ -207,24 +158,9 @@ export const FormProvider = (props: {
 
     if (generatedData) {
       for (const [key, value] of Object.entries(generatedData)) {
-        if (key == "header") {
-          for (const [key1, value1] of Object.entries(value)) {
-            newFormValues[key][key1] = value1;
-          }
-        } else {
-          for (const [key1, value1] of Object.entries(value)) {
-            for (const [key2, value2] of Object.entries(value1 as any)) {
-              if (Array.isArray(value1)) {
-                newFormValues[key][key1] = value1;
-              } else if (newFormValues[key]?.[key1]?.hasOwnProperty(key2)) {
-                newFormValues[key][key1][key2] = value2;
-              }
-            }
-          }
-        }
+        newFormValues[key] = value;
       }
     }
-
     console.log(newFormValues);
     setDataLoaded(true);
     setFormValues(newFormValues);
@@ -233,22 +169,9 @@ export const FormProvider = (props: {
   function handleInputChange(inputProps: InputProps | undefined, value: any) {
     if (!inputProps) return;
 
-    const windowFields = formValues[inputProps.windowName];
-    let sectionFields: FormValues = {};
-    if (inputProps.parentName != "") {
-      if (inputProps.componentName != "") {
-        sectionFields = windowFields[inputProps.parentName];
-        sectionFields[inputProps.componentName] = value;
-      } else {
-        windowFields[inputProps.parentName] = value;
-      }
-    } else {
-      windowFields[inputProps.componentName] = value;
-    }
-
     setFormValues((prevState) => ({
       ...prevState,
-      [inputProps.windowName]: windowFields,
+      [inputProps.componentName]: value,
     }));
   }
 

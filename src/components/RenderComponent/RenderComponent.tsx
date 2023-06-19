@@ -12,7 +12,7 @@ import {
   useFormContext,
 } from "@/context/FormContext";
 import { Session } from "next-auth";
-import { createUniqueID } from "@/utils/create-id";
+import widthStyles from "@/utils/width-style-map";
 
 export interface ComponentMap {
   [key: string]: React.FC<ComponentProps>;
@@ -28,7 +28,6 @@ export type ComponentProps = {
   setValue?: (e: any) => void;
   editable?: boolean;
   otherOptions?: { [key: string]: any };
-  id?: string;
 };
 
 export const componentMap: ComponentMap = {
@@ -47,6 +46,7 @@ const RenderComponent = (props: {
   componentProps: ComponentProps;
   className?: string;
 }) => {
+  const formContext = useFormContext();
   const { componentName, component } = props.componentProps;
 
   const Component = componentMap[component.type];
@@ -54,30 +54,16 @@ const RenderComponent = (props: {
     throw new Error(`Unknown form key: ${component.type}`);
   }
 
-  component.label = componentName.replaceAll("_", " ");
+  component.label = componentName.replace("_", " ");
   component.id = componentName;
-
   if (component.type == "Reference Id") {
     component.api_url = component.ref;
     component.fields_to_display = component.fields;
   }
 
-  const elementId = createUniqueID(component.label, component.id);
-
   return (
-    <div className={`${props.className}`}>
-      {component.type !== "Boolean" && component.type !== "RadioGroup" && (
-        <label className="label relative inline-block" htmlFor={elementId}>
-          {component.label}
-          {component.required && (
-            <span className="absolute -right-3 font-light label -top-3 text-lg text-primary">
-              *
-            </span>
-          )}
-        </label>
-      )}
-
-      <Component {...props.componentProps} id={elementId} />
+    <div className={props.className}>
+      <Component {...props.componentProps} />
     </div>
   );
 };
