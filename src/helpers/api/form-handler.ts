@@ -6,10 +6,10 @@ import { revalidateTag } from "next/cache";
 export async function simulate(
   session: Session | null,
   api_url: string,
-  item_id?: string
+  item_id?: number
 ) {
   const api = api_url.split("?")[0];
-  const url = getApiURL() + api + "/" + item_id + "/posting";
+  const url = getApiURL() + api + "/" + item_id + "/head";
 
   console.log(url);
   const response = await fetch(url, {
@@ -36,6 +36,28 @@ export async function park(
   const url = getApiURL() + api + "/" + item_id + "/status?status=PARKED";
   const response = await fetch(url, {
     method: "PUT",
+    headers: {
+      Authorization: `Bearer ${session?.user.token}`,
+    },
+    cache: "no-cache",
+  });
+
+  if (response.ok) {
+    revalidateTag(api_url);
+  }
+
+  return await response.json();
+}
+
+export async function deleteItem(
+  session: Session | null,
+  api_url: string,
+  item_id?: number
+) {
+  const api = api_url.split("?")[0];
+  const url = getApiURL() + api + "/" + item_id;
+  const response = await fetch(url, {
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${session?.user.token}`,
     },

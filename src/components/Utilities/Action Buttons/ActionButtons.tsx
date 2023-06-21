@@ -1,50 +1,39 @@
 "use client";
 import React, { useState } from "react";
-import {
-  DocumentDuplicateIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import FormModal from "@/components/Forms/FormModal";
 import { useFormContext } from "@/context/FormContext";
-import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import useQueryParams from "@/utils/use-query-params";
+import DeleteModal from "@/components/Forms/DeleteModal";
 
 function ActionButtons(props: {
   component: ButtonModalElement;
   page: PageItem;
   index: number;
-  id: string;
+  id: number;
 }) {
-  let [show, setShow] = useState(false);
-  let context = useFormContext();
-
-  const pathName = usePathname();
-
-  function duplicateForm() {
-    setShow(true);
-    context.duplicateValues(props.index);
-  }
+  const [showDeleteForm, setShowDeleteForm] = useState(false);
+  const { getLinkWithParams } = useQueryParams();
 
   return (
     <>
       <div className="flex gap-4 justify-center">
-        <Link href={pathName?.concat("?item=", props.id) || ""}>
-          <PencilSquareIcon className="w-5 hover:scale-150"></PencilSquareIcon>
+        <Link href={getLinkWithParams({ item: props.id })}>
+          <PencilSquareIcon className="w-5 hover:scale-150" />
         </Link>
-        <DocumentDuplicateIcon
+        <TrashIcon
           className="w-5 hover:scale-150 hover:cursor-pointer"
-          onClick={() => duplicateForm()}
-        ></DocumentDuplicateIcon>
-        {/*<TrashIcon className="w-5 hover:scale-150"></TrashIcon>*/}
+          onClick={() => setShowDeleteForm(true)}
+        />
       </div>
 
-      <FormModal
-        show={show}
-        setShow={setShow}
+      <DeleteModal
+        show={showDeleteForm}
+        setShow={setShowDeleteForm}
         page={props.page}
-        button={props.component.button}
-      ></FormModal>
+        id={props.id}
+      />
     </>
   );
 }

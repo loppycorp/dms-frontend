@@ -1,32 +1,31 @@
 import React, { useState, useTransition } from "react";
-import FormSectionsJSON from "@/components/Elements/Containers/FormSection/FormSectionsJSON";
 import Modal from "@/components/Utilities/Modal/Modal";
 import { useSession } from "next-auth/react";
 import AlertList from "@/components/Alerts/AlertList";
 import { useFormContext } from "@/context/FormContext";
-import FormItemsJSON from "@/components/Forms/FormItemsJSON";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
-import { createItem } from "@/helpers/api/form-handler";
+import { deleteItem } from "@/helpers/api/form-handler";
 
-function FormModal(props: {
+function DeleteModal(props: {
   show: boolean;
   setShow: (e: boolean) => void;
   page: PageItem;
-  button: ButtonElement;
+  id: number;
 }) {
   const { data: session } = useSession();
-  const context = useFormContext();
-  const data = context.getData();
+  const { refreshData } = useFormContext();
   const [errors, setErrors] = useState([] as any);
   let [isPending, startTransition] = useTransition();
 
   function handleSubmit() {
     setErrors([]);
     startTransition(() => {
-      createItem(data, session, props.page.api_url).then((res) => {
+      deleteItem(session, props.page.api_url, props.id).then((res) => {
+        console.log(props);
         if (res.status == "success") {
           props.setShow(false);
-          context.refreshData();
+          refreshData();
         } else {
           if (res.error) {
             setErrors(
@@ -51,7 +50,8 @@ function FormModal(props: {
         disabled={isPending}
         onClick={handleSubmit}
       >
-        Create
+        <TrashIcon className="w-4" />
+        Delete
       </button>
       <button
         type="button"
@@ -67,16 +67,19 @@ function FormModal(props: {
     <Modal
       show={props.show}
       setShow={props.setShow}
-      icon={<div dangerouslySetInnerHTML={{ __html: props.button.icon }} />}
+      icon={<TrashIcon className={"w-5"} />}
       buttons={formButtons}
     >
       <div className="text-base font-semibold leading-6 text-gray-900 mb-3 ml-3">
-        {props.button.label}
+        Delete Item
       </div>
-      {errors?.length > 0 && <AlertList data={errors} />}
-      <FormItemsJSON items={props.page.json_data} session={session} />
+      <div className="ml-4 mr-5">
+        {errors?.length > 0 && <AlertList data={errors} />}
+        Click <b>DELETE</b> button to confirm.
+        <div>Item ID: {props.id}.</div>
+      </div>
     </Modal>
   );
 }
 
-export default FormModal;
+export default DeleteModal;
