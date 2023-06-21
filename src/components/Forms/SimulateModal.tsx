@@ -54,7 +54,16 @@ function SimulateModal(props: {
         onClick={handleSubmit}
       >
         <CheckIcon className="w-4" />
-        Save
+        Approved
+      </button>
+      <button
+        type="button"
+        className="btn-primary w-full sm:w-auto"
+        disabled={isPending}
+        onClick={handleSubmit}
+      >
+        <CheckIcon className="w-4" />
+        Declined
       </button>
       <button
         type="button"
