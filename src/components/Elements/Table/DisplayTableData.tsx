@@ -103,13 +103,13 @@ function DisplayTableData(props: {
       ) : (
         <LoadingSpinner />
       )}
-      {/* <Pagination
+      <Pagination
         itemsPerPage={pageData?.pagination.page_limit || 0}
         totalItems={pageData?.pagination.total_result || 0}
         currentPageNumber={queryParams?.get("page")}
         onPageChange={onPageChange}
         className="flex justify-end mt-4"
-      ></Pagination> */}
+      ></Pagination>
       <ButtonItems
         page={props.page}
         buttons={props.page.buttons}

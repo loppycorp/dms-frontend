@@ -33,7 +33,7 @@ function Statistics(props: AdditionalSectionProps) {
             {stats?.complete}
           </div>
           <div className="flex text-light text-2xl px-10">
-            Complete Requests
+            Completed Requests
           </div>
         </div>
       </div>

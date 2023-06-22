@@ -3,30 +3,33 @@ import Modal from "@/components/Utilities/Modal/Modal";
 import { useSession } from "next-auth/react";
 import AlertList from "@/components/Alerts/AlertList";
 import { useFormContext } from "@/context/FormContext";
-import { CheckIcon } from "@heroicons/react/24/outline";
+import {
+  CheckIcon,
+  DocumentCheckIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
-import { useRouter, useSearchParams } from "next/navigation";
-import { park } from "@/helpers/api/form-handler";
+import { completeItem } from "@/helpers/api/form-handler";
 
-function ParkModal(props: {
+function DeleteModal(props: {
   show: boolean;
   setShow: (e: boolean) => void;
   page: PageItem;
-  button: ButtonElement;
+  id: number;
 }) {
   const { data: session } = useSession();
-  let context = useFormContext();
+  const { refreshData } = useFormContext();
   const [errors, setErrors] = useState([] as any);
-  const item_id = useSearchParams()?.get("item") || "";
   let [isPending, startTransition] = useTransition();
 
   function handleSubmit() {
     setErrors([]);
     startTransition(() => {
-      park(session, props.page.api_url, item_id).then((res) => {
+      completeItem(session, props.page.api_url, props.id).then((res) => {
+        console.log(props);
         if (res.status == "success") {
-          location.reload();
           props.setShow(false);
+          refreshData();
         } else {
           if (res.error) {
             setErrors(
@@ -51,8 +54,8 @@ function ParkModal(props: {
         disabled={isPending}
         onClick={handleSubmit}
       >
-        <CheckIcon className="w-4" />
-        Save
+        <DocumentCheckIcon className="w-4" />
+        Completed
       </button>
       <button
         type="button"
@@ -68,18 +71,19 @@ function ParkModal(props: {
     <Modal
       show={props.show}
       setShow={props.setShow}
-      icon={<div dangerouslySetInnerHTML={{ __html: props.button.icon }} />}
+      icon={<CheckIcon className={"w-5"} />}
       buttons={formButtons}
     >
       <div className="text-base font-semibold leading-6 text-gray-900 mb-3 ml-3">
-        {props.button.label}
+        Complete Ticket
       </div>
       <div className="ml-4 mr-5">
         {errors?.length > 0 && <AlertList data={errors} />}
-        Save the transaction?
+        Click <b>Complete</b> button to confirm.
+        <div>Item ID: {props.id}.</div>
       </div>
     </Modal>
   );
 }
 
-export default ParkModal;
+export default DeleteModal;

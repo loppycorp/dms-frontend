@@ -72,6 +72,18 @@ export const FormProvider = (props: {
     refreshPageData();
   }, [params]);
 
+  useEffect(() => {
+    const itemIdParam = params?.get("item");
+    setCurrentSelectedItemId(itemIdParam || "");
+
+    if (pageData && itemIdParam) {
+      const index = pageData.data.findIndex((item: any) => {
+        return item._id === itemIdParam;
+      });
+      assignValues(index);
+    }
+  }, [pageData]);
+
   function refreshPageData() {
     const pageParam = params?.get("page");
 
@@ -87,14 +99,18 @@ export const FormProvider = (props: {
   }
   function value(inputProps?: InputProps) {
     if (!inputProps) return;
-    console.log(formValues[inputProps.componentName]);
-    return formValues[inputProps.componentName];
+
+    if (inputProps.componentName != "") {
+      return formValues[inputProps.componentName];
+    } else {
+      return null;
+    }
   }
 
   function sanitizeForm(fields: any, vals: any) {
-    let newFormValues = { ...vals };
+    let newFormValues: any = { ...vals };
 
-    // find all the items that have values of objects,
+    // Find all the items that have values of objects,
     // replace their value with their actual id
     for (const [key, value] of Object.entries(newFormValues)) {
       const tempFields = fields?.[key];
@@ -106,7 +122,11 @@ export const FormProvider = (props: {
           newFormValues[key] = value;
         }
       }
-      if (value == null || value == "" || tempFields?.disabled) {
+      if (
+        value == null ||
+        value === "" ||
+        (tempFields && tempFields.disabled)
+      ) {
         delete newFormValues[key];
       }
     }

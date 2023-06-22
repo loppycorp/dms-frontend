@@ -5,8 +5,6 @@ import SimulateTableData from "@/components/Elements/Table/SimulateTableData";
 
 function RenderSimulateItems(props: {
   items: object;
-  windowName: string;
-  sectionName: string;
   session: Session | null;
 }) {
   const itemsArray = Object.entries(props.items);

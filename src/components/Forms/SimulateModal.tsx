@@ -82,37 +82,30 @@ function SimulateModal(props: {
       icon={<div dangerouslySetInnerHTML={{ __html: props.button.icon }} />}
       buttons={formButtons}
     >
-      <div className="text-base font-semibold leading-6 text-gray-900 mb-3 ml-3">
+      <div className="text-base font-semibold leading-6 text-gray-900 mb-7 ml-7">
         {props.button.label}
       </div>
-      <div className="ml-4 mr-5">
+      <div className="ml-7 mr-7">
         {errors?.length > 0 && <AlertList data={errors} />}
-        {Object.entries(props.page.json_data).map(([windowName, value]) => {
-          if (windowName == "header")
+        {Object.entries(props.page.json_data).map(([componentName, value]) => {
+          if (componentName)
             return (
               <RenderSimulateItems
-                items={(props.page.json_data as any).header}
-                windowName="header"
-                sectionName={""}
+                items={props.page.json_data}
                 session={session}
-                key={windowName}
+                key={componentName}
               />
             );
           const formSectionsArray = Object.entries(value as object);
 
-          return formSectionsArray.map(([sectionName, value]) => {
+          return formSectionsArray.map(([componentName, value]) => {
             if (typeof value != "object") {
-              throw new Error(`Not a section type: ${sectionName}`);
+              throw new Error(`Not a section type: ${componentName}`);
             }
             return (
-              <div className={`w-full`} key={sectionName}>
+              <div className={`w-full`} key={componentName}>
                 <div className="flex flex-wrap">
-                  <RenderSimulateItems
-                    items={value}
-                    windowName={windowName}
-                    sectionName={sectionName}
-                    session={session}
-                  />
+                  <RenderSimulateItems items={value} session={session} />
                 </div>
               </div>
             );

@@ -33,7 +33,7 @@ export async function park(
   item_id?: string
 ) {
   const api = api_url.split("?")[0];
-  const url = getApiURL() + api + "/" + item_id + "/status?status=PARKED";
+  const url = getApiURL() + api + "/" + item_id + "/admin";
   const response = await fetch(url, {
     method: "PUT",
     headers: {
@@ -111,5 +111,27 @@ export async function updateItem(
   if (response.ok) {
     revalidateTag(api_url);
   }
+  return await response.json();
+}
+
+export async function completeItem(
+  session: Session | null,
+  api_url: string,
+  item_id?: number
+) {
+  const api = api_url.split("?")[0];
+  const url = getApiURL() + api + "/" + item_id + "/complete";
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${session?.user.token}`,
+    },
+    cache: "no-cache",
+  });
+
+  if (response.ok) {
+    revalidateTag(api_url);
+  }
+
   return await response.json();
 }
