@@ -25,6 +25,7 @@ declare global {
     display_fields: string;
     display_columns: string;
     additional_sections: any[];
+    access: string[];
   };
 
   type PaginationItem = {
@@ -50,6 +51,7 @@ declare global {
     icon_active?: any;
     bullet_color?: string;
     children?: MenuLinkItem[];
+    access?: string[];
   };
 
   type MenuItem = {

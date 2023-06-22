@@ -3,6 +3,7 @@ import React from "react";
 import SidebarHandler from "@/components/Sidebar/SidebarHandler";
 import SidebarContent from "@/components/Sidebar/SidebarContent";
 import { systemMenus } from "@/data/navigation";
+import { Session } from "next-auth";
 
 const fetchMenus = async () => {
   const menuItemsRes = await fetchAPIFromCMS(
@@ -15,10 +16,16 @@ const fetchMenus = async () => {
   return items;
 };
 
-function Sidebar({ className }: { className?: string | null }) {
+function Sidebar({
+  className,
+  session,
+}: {
+  className?: string | null;
+  session: Session | null;
+}) {
   return (
     <SidebarHandler className={className}>
-      <SidebarContent menuItems={systemMenus} />
+      <SidebarContent menuItems={systemMenus} session={session} />
     </SidebarHandler>
   );
 }

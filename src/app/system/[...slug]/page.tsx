@@ -10,7 +10,10 @@ type PageParamsType = {
 export default async function Page({ params }: PageParamsType) {
   const session = await getServerSession(authOptions);
   const page = await fetchPages(params.slug.join("/"));
-  if (!page) return notFound();
+
+  const role = session?.user?.data?.role;
+  if (!page || (page && role && !page.access?.includes(role)))
+    return notFound();
 
   return (
     <div className="p-4 h-full relative ">

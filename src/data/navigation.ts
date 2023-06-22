@@ -1,9 +1,19 @@
+import { roles } from "@/data/roles";
 export const systemMenus: MenuLinkItem[] = [
+  {
+    title: "Ticket",
+    url: "/dashboard/user",
+    icon: "/nav-icons/home.svg",
+    icon_active: "/nav-icons/home-active.svg",
+    access: [roles.USER, roles.HEAD],
+    children: [],
+  },
   {
     title: "Dashboard",
     url: "/dashboard",
     icon: "/nav-icons/home.svg",
     icon_active: "/nav-icons/home-active.svg",
+    access: [roles.ADMIN],
     children: [],
   },
   {
@@ -11,6 +21,7 @@ export const systemMenus: MenuLinkItem[] = [
     url: "/configuration",
     icon: "/nav-icons/configuration.svg",
     icon_active: "/nav-icons/configuration-active.svg",
+    access: [roles.ADMIN],
     children: [
       {
         title: "Users",
