@@ -6,7 +6,7 @@ import { revalidateTag } from "next/cache";
 export async function simulate(
   session: Session | null,
   api_url: string,
-  item_id?: number
+  item_id?: string
 ) {
   const api = api_url.split("?")[0];
   const url = getApiURL() + api + "/" + item_id + "/head";

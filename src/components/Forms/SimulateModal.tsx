@@ -88,16 +88,7 @@ function SimulateModal(props: {
       </div>
       <div className="ml-7 mr-7">
         {errors?.length > 0 && <AlertList data={errors} />}
-        {Object.entries(props.page.json_data).map(([componentName, value]) => {
-          if (componentName)
-            return (
-              <RenderSimulateItems
-                items={props.page.json_data}
-                session={session}
-                key={componentName}
-              />
-            );
-        })}
+        <RenderSimulateItems items={props.page.json_data} session={session} />
       </div>
     </Modal>
   );
