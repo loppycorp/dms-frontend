@@ -30,11 +30,13 @@ export async function simulate(
 export async function park(
   session: Session | null,
   api_url: string,
+  fieldValues: any,
   item_id?: string
 ) {
   const api = api_url.split("?")[0];
   const url = getApiURL() + api + "/" + item_id + "/admin";
   const response = await fetch(url, {
+    body: fieldValues,
     method: "PUT",
     headers: {
       Authorization: `Bearer ${session?.user.token}`,
