@@ -19,6 +19,8 @@ function ParkModal(props: {
   const [errors, setErrors] = useState([] as any);
   const item_id = useSearchParams()?.get("item") || "";
   let [isPending, startTransition] = useTransition();
+  const [driver, setDriver] = useState("");
+  const [vehicle, setVehicle] = useState("");
 
   function handleSubmit() {
     setErrors([]);
@@ -73,6 +75,30 @@ function ParkModal(props: {
     >
       <div className="text-base font-semibold leading-6 text-gray-900 mb-3 ml-3">
         {props.button.label}
+      </div>
+      <div>
+        <label className="label" htmlFor="driver">
+          Driver
+        </label>
+        <input
+          className="input"
+          id="driver"
+          type="text"
+          value={driver}
+          onChange={(e) => setDriver(e.target.value)}
+        />
+      </div>
+      <div>
+        <label className="label" htmlFor="vehicle">
+          Vehicle
+        </label>
+        <input
+          className="input"
+          id="vehicle"
+          type="text"
+          value={vehicle}
+          onChange={(e) => setVehicle(e.target.value)}
+        />
       </div>
       <div className="ml-4 mr-5">
         {errors?.length > 0 && <AlertList data={errors} />}
