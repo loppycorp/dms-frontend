@@ -53,7 +53,9 @@ function ButtonModalElement(props: {
       <ButtonElement
         component={button}
         buttonClasses={props.buttonClasses}
-        onClick={() => functionMap[button.method_name](context, setShow)}
+        onClick={() =>
+          functionMap[button.method_name](context, setShow, button.fields)
+        }
       />
       {ModalComponent && (
         <ModalComponent

@@ -3,7 +3,8 @@ import { FormContextType } from "@/context/FormContext";
 export interface FunctionMap {
   [key: string]: (
     context: FormContextType,
-    setShow: (isShow: boolean) => void
+    setShow: (isShow: boolean) => void,
+    fields: any
   ) => void;
 }
 

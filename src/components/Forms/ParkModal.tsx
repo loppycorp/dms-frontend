@@ -7,6 +7,7 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { park } from "@/helpers/api/form-handler";
+import FormItemsJSON from "./FormItemsJSON";
 
 function ParkModal(props: {
   show: boolean;
@@ -21,7 +22,7 @@ function ParkModal(props: {
   let [isPending, startTransition] = useTransition();
   const [driver, setDriver] = useState("");
   const [vehicle, setVehicle] = useState("");
-
+  console.log(props.button.fields);
   function handleSubmit() {
     setErrors([]);
     startTransition(() => {
@@ -76,30 +77,7 @@ function ParkModal(props: {
       <div className="text-base font-semibold leading-6 text-gray-900 mb-3 ml-3">
         {props.button.label}
       </div>
-      <div>
-        <label className="label" htmlFor="driver">
-          Driver
-        </label>
-        <input
-          className="input"
-          id="driver"
-          type="text"
-          value={driver}
-          onChange={(e) => setDriver(e.target.value)}
-        />
-      </div>
-      <div>
-        <label className="label" htmlFor="vehicle">
-          Vehicle
-        </label>
-        <input
-          className="input"
-          id="vehicle"
-          type="text"
-          value={vehicle}
-          onChange={(e) => setVehicle(e.target.value)}
-        />
-      </div>
+      <FormItemsJSON items={props.button.fields} session={session} />
       <div className="ml-4 mr-5">
         {errors?.length > 0 && <AlertList data={errors} />}
         Save the transaction?

@@ -126,6 +126,7 @@ declare global {
     url: string;
     method_name: string;
     params: string;
+    fields: any;
   }
 
   interface ButtonModalElement extends InputItem {
