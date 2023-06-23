@@ -1,7 +1,7 @@
 import { roles } from "@/data/roles";
 export const systemMenus: MenuLinkItem[] = [
   {
-    title: "Ticket",
+    title: "Trip Request",
     url: "/dashboard/user",
     icon: "/nav-icons/home.svg",
     icon_active: "/nav-icons/home-active.svg",

@@ -10,6 +10,8 @@ function RenderSimulateItems(props: {
   const itemsArray = Object.entries(props.items);
   const context = useFormContext();
 
+  console.log(itemsArray);
+
   return (
     <>
       {itemsArray.map(([componentName, component]) => {

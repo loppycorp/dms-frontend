@@ -26,6 +26,7 @@ function SimulateModal(props: {
     setErrors([]);
     startTransition(() => {
       simulate(session, props.page.api_url, item_id).then((res) => {
+        console.log(props.page.json_data);
         if (res.status == "success") {
           location.reload();
           props.setShow(false);
@@ -96,20 +97,6 @@ function SimulateModal(props: {
                 key={componentName}
               />
             );
-          const formSectionsArray = Object.entries(value as object);
-
-          return formSectionsArray.map(([componentName, value]) => {
-            if (typeof value != "object") {
-              throw new Error(`Not a section type: ${componentName}`);
-            }
-            return (
-              <div className={`w-full`} key={componentName}>
-                <div className="flex flex-wrap">
-                  <RenderSimulateItems items={value} session={session} />
-                </div>
-              </div>
-            );
-          });
         })}
       </div>
     </Modal>
