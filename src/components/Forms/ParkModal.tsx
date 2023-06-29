@@ -8,6 +8,7 @@ import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { park } from "@/helpers/api/form-handler";
 import FormItemsJSON from "./FormItemsJSON";
+import RenderComponent from "@/components/RenderComponent/RenderComponent";
 
 function ParkModal(props: {
   show: boolean;
@@ -19,14 +20,15 @@ function ParkModal(props: {
   let context = useFormContext();
   const [errors, setErrors] = useState([] as any);
   const item_id = useSearchParams()?.get("item") || "";
+  const fields = Object.keys(props.button.fields);
+  const [fieldValues, setFieldValues] = useState<any>({});
+
   let [isPending, startTransition] = useTransition();
-  const [driver, setDriver] = useState("");
-  const [vehicle, setVehicle] = useState("");
-  console.log(props.button.fields);
+
   function handleSubmit() {
     setErrors([]);
     startTransition(() => {
-      park(session, props.page.api_url, item_id).then((res) => {
+      park(session, props.page.api_url, fieldValues, item_id).then((res) => {
         if (res.status == "success") {
           location.reload();
           props.setShow(false);
@@ -77,7 +79,24 @@ function ParkModal(props: {
       <div className="text-base font-semibold leading-6 text-gray-900 mb-3 ml-3">
         {props.button.label}
       </div>
-      <FormItemsJSON items={props.button.fields} session={session} />
+      {fields.map((fieldName, colIndex) => (
+        <RenderComponent
+          key={fieldName}
+          componentProps={{
+            context: context,
+            component: props.button.fields[fieldName],
+            session: session,
+            componentName: fieldName,
+            editable: true,
+            value: fieldValues[fieldName],
+            setValue: (e) =>
+              setFieldValues((prevState: any) => ({
+                ...prevState,
+                [fieldName]: e,
+              })),
+          }}
+        />
+      ))}
       <div className="ml-4 mr-5">
         {errors?.length > 0 && <AlertList data={errors} />}
         Save the transaction?
