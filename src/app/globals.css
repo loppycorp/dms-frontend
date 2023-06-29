@@ -5,7 +5,7 @@
 :root {
   --color-primary: #039d66;
   --color-primary-dark: #01714a;
-  --color-primary-light: #a2323130;
+  --color-primary-light: #ce2b28e0;
   --color-light: #ffffff;
   --color-black: #000000;
   --color-light-lighter: #ededed;
@@ -22,6 +22,10 @@
 
   .btn-primary {
     @apply btn bg-primary text-light hover:bg-primary-dark hover:text-light disabled:pointer-events-none disabled:bg-gray-500;
+  }
+
+  .btn-primary-light {
+    @apply btn bg-primary-light text-light hover:bg-primary-light hover:text-light disabled:pointer-events-none disabled:bg-gray-500;
   }
 
   .btn-tiny {

@@ -59,7 +59,7 @@ function SimulateModal(props: {
       </button>
       <button
         type="button"
-        className="btn-primary w-full sm:w-auto"
+        className="btn-primary-light w-full sm:w-auto"
         disabled={isPending}
         onClick={handleSubmit}
       >
