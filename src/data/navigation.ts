@@ -38,11 +38,6 @@ export const systemMenus: MenuLinkItem[] = [
         url: "/vehicles",
         bullet_color: "#219653",
       },
-      {
-        title: "Departments",
-        url: "/departments",
-        bullet_color: "#2D9CDB",
-      },
     ],
   },
 ];
