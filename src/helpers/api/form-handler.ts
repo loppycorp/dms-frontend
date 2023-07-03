@@ -3,6 +3,24 @@ import { Session } from "next-auth";
 import { getApiURL } from "@/lib/api";
 import { revalidateTag } from "next/cache";
 
+function cleanValues(vals: any) {
+  let newFormValues: any = { ...vals };
+
+  // Find all the items that have values of objects,
+  // replace their value with their actual id
+  for (const [key, value] of Object.entries(newFormValues)) {
+    if (typeof value === "object" && value !== null) {
+      if ("_id" in value) {
+        newFormValues[key] = value["_id"];
+      } else {
+        newFormValues[key] = value;
+      }
+    }
+  }
+
+  return JSON.stringify(newFormValues);
+}
+
 export async function simulate(
   session: Session | null,
   api_url: string,
@@ -36,12 +54,12 @@ export async function park(
   const api = api_url.split("?")[0];
   const url = getApiURL() + api + "/" + item_id + "/admin";
   const response = await fetch(url, {
-    body: fieldValues,
+    body: cleanValues(fieldValues),
     method: "PUT",
     headers: {
       Authorization: `Bearer ${session?.user.token}`,
+      "Content-Type": "application/json",
     },
-    cache: "no-cache",
   });
 
   if (response.ok) {
