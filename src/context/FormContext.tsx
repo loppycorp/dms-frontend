@@ -78,8 +78,9 @@ export const FormProvider = (props: {
 
     if (pageData && itemIdParam) {
       const index = pageData.data.findIndex((item: any) => {
-        return item._id === itemIdParam;
+        return item._id == itemIdParam;
       });
+      console.log("acangangkasgas", index, "agksamgkasmnag", itemIdParam);
       assignValues(index);
     }
   }, [pageData]);
@@ -181,7 +182,9 @@ export const FormProvider = (props: {
         newFormValues[key] = value;
       }
     }
-    console.log(newFormValues);
+    console.log(generatedData);
+    console.log(pageData.data);
+    console.log(index);
     setDataLoaded(true);
     setFormValues(newFormValues);
   }

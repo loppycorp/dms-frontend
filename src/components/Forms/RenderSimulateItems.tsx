@@ -22,20 +22,22 @@ function RenderSimulateItems(props: {
 
         switch (component.type) {
           case "Table":
-            return (
-              <div className="mt-4">
-                <SimulateTableData
-                  context={context}
-                  componentName={componentName}
-                  component={component}
-                  session={props.session}
-                  inputProps={{
-                    componentName: componentName,
-                  }}
-                  key={componentName}
-                />
-              </div>
-            );
+            return <></>;
+          // case "Table":
+          //   return (
+          //     <div className="mt-4">
+          //       <SimulateTableData
+          //         context={context}
+          //         componentName={componentName}
+          //         component={component}
+          //         session={props.session}
+          //         inputProps={{
+          //           componentName: componentName,
+          //         }}
+          //         key={componentName}
+          //       />
+          //     </div>
+          //   );
           case "Reference Id":
             if (selectedField) {
               const displayFields = component.fields?.trim().split(/\r?\n|, /);

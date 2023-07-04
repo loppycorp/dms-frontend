@@ -12,24 +12,17 @@ import Modal from "@/components/Utilities/Modal/Modal";
 import { updateItem } from "@/helpers/api/form-handler";
 
 function WindowContent({
-  children,
-  title,
   session,
   api,
 }: {
-  children: React.ReactNode;
-  title: string;
   session: Session | null;
   api: string;
 }) {
-  const route = RouteHandler({ url: title });
   const context = useFormContext();
   const [errors, setErrors] = useState<any[]>([]);
   const [success, setSuccess] = useState(false);
   let [isPending, startTransition] = useTransition();
   const item_id = useSearchParams()?.get("item") || "";
-
-  if (route.params != route.slug || !session) return <></>;
 
   function handleSubmit() {
     const data = context.getData();
@@ -68,7 +61,7 @@ function WindowContent({
   return (
     <>
       {errors.length > 0 && <AlertList data={errors} />}
-      {children}
+
       <div className="flex gap-2 justify-end">
         {isPending && <LoadingSpinner />}
         <button

@@ -6,7 +6,6 @@ import RenderComponent, {
 
 function TableData(props: ComponentProps) {
   // because the retrieved data from api doesn't have a component name for table, let's leave it empty
-  if (props.inputProps) props.inputProps.componentName = "";
 
   const headers = Object.keys(props.component.fields);
   const emptyRow = headers.reduce((acc: { [key: string]: string }, str) => {
@@ -34,13 +33,13 @@ function TableData(props: ComponentProps) {
 
   return (
     <div className="w-full overflow-auto h-full table-data">
-      <table className="w-full text-sm text-left text-primary-dark bg-gray-400 rounded-2xl overflow-hidden border border-gray-400">
-        <thead className="text-xs text-primary-dark uppercase bg-light-dark">
+      <table className="w-full text-sm text-left text-primary-dark bg-primary rounded-2xl overflow-hidden border border-gray-400">
+        <thead className="text-xs text-black uppercase bg-light">
           <tr>
             {headers.map((header) => (
               <th
                 scope="col"
-                className="px-3 py-3 text-center border border-gray-400"
+                className="px-3 py-3 text-center border border-primary"
                 key={header}
               >
                 {header}
@@ -48,11 +47,11 @@ function TableData(props: ComponentProps) {
             ))}
           </tr>
         </thead>
-        <tbody className="bg-light-lighter">
+        <tbody className="bg-light">
           {rows.map((row, rowIndex) => (
             <tr className="border-b" key={rowIndex}>
               {headers.map((header, colIndex) => (
-                <td className="border border-gray-400" key={colIndex}>
+                <td className="border border-primary" key={colIndex}>
                   <RenderComponent
                     key={rowIndex + colIndex + ""}
                     componentProps={{
@@ -71,11 +70,11 @@ function TableData(props: ComponentProps) {
             </tr>
           ))}
         </tbody>
-        <tfoot className="text-xs text-primary-dark uppercase bg-gray-100">
+        <tfoot className="text-xs text-black uppercase bg-light">
           <tr>
             <td
               colSpan={headers.length}
-              className="px-6 py-3 text-left border border-gray-400 cursor-pointer text-gray-500"
+              className="px-6 py-3 text-left border border-primary cursor-pointer text-black"
               onClick={() => addRow()}
             >
               Add new +
